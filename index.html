@@ -53,7 +53,7 @@
     padding: 6px 12px;
     z-index: 99;
   }
-  
+
   .m-p-help {
     position: fixed;
     right: 50px;
@@ -446,7 +446,7 @@ new Vue({
   data() {
     return {
       url: '', // 在线链接
-      tips: 'm3u8 视频在线提取工具', // 顶部提示 
+      tips: 'm3u8 视频在线提取工具', // 顶部提示
       title: '', // 视频标题
       isPause: false, // 是否暂停下载
       isGetMP4: false, // 是否转码为 MP4 下载
@@ -562,7 +562,7 @@ new Vue({
       }
     },
 
-    // 使用流式下载，边下载边保存，解决大视频文件内存不足的难题 
+    // 使用流式下载，边下载边保存，解决大视频文件内存不足的难题
     streamDownload(isMp4){
       this.isGetMP4 = isMp4
       this.title = new URL(this.url).searchParams.get('title') || this.title // 获取视频标题
@@ -586,6 +586,7 @@ new Vue({
         alert('请输入链接')
         return
       }
+      // 如果需要 下载非这个后缀的 需要去掉这个
       if (this.url.toLowerCase().indexOf('m3u8') === -1) {
         alert('链接有误，请重新输入')
         return
@@ -772,6 +773,7 @@ new Vue({
             this.streamWriter.close()
           }
         } else if (this.finishNum === this.rangeDownload.targetSegment) {
+          // 修改文件名称 如果需要的话
           let fileName = this.title || this.formatTime(this.beginTime, 'YYYY_MM_DD hh_mm_ss')
           if(document.title !== 'm3u8 downloader'){
             fileName = this.getDocumentTitle()
@@ -832,7 +834,7 @@ new Vue({
 
     // 重新下载所有错误片段
     retryAll(forceRestart) {
-      
+
       if (!this.finishList.length || this.isPause) {
         return
       }
